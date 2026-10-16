@@ -1,0 +1,147 @@
+:root {
+  --bg: #0f172a;
+  --panel: #1e293b;
+  --panel-2: #273449;
+  --text: #e2e8f0;
+  --muted: #94a3b8;
+  --accent: #38bdf8;
+  --danger: #f87171;
+  --radius: 12px;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+.hidden { display: none !important; }
+
+/* ---------- Top bar ---------- */
+.topbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 20px;
+  padding: 12px 20px;
+  background: var(--panel);
+  border-bottom: 1px solid #334155;
+}
+
+.brand { display: flex; align-items: center; gap: 10px; }
+.brand .logo { font-size: 30px; color: var(--accent); line-height: 1; }
+.brand h1 { margin: 0; font-size: 20px; }
+.brand p { margin: 0; font-size: 12px; color: var(--muted); }
+
+.search { display: flex; flex: 1 1 320px; gap: 8px; max-width: 560px; }
+.search input {
+  flex: 1;
+  min-width: 0;
+  padding: 9px 12px;
+  border-radius: 8px;
+  border: 1px solid #475569;
+  background: var(--bg);
+  color: var(--text);
+}
+.search input:focus { outline: 2px solid var(--accent); border-color: transparent; }
+
+button, select {
+  font: inherit;
+  color: var(--text);
+  background: var(--panel-2);
+  border: 1px solid #475569;
+  border-radius: 8px;
+  padding: 8px 14px;
+  cursor: pointer;
+}
+button:hover, select:hover { border-color: var(--accent); }
+button:focus-visible, select:focus-visible { outline: 2px solid var(--accent); }
+
+.search button[type="submit"] { background: var(--accent); color: #0b1220; border-color: var(--accent); font-weight: 600; }
+
+.controls { display: flex; gap: 10px; align-items: center; margin-left: auto; }
+.segmented { display: inline-flex; }
+.segmented button { border-radius: 0; padding: 8px 12px; }
+.segmented button:first-child { border-radius: 8px 0 0 8px; }
+.segmented button:last-child { border-radius: 0 8px 8px 0; border-left: 0; }
+.segmented button.active { background: var(--accent); color: #0b1220; border-color: var(--accent); font-weight: 600; }
+
+.banner {
+  background: #7c2d12;
+  color: #ffedd5;
+  padding: 10px 20px;
+  font-size: 14px;
+}
+.banner code { background: rgba(0, 0, 0, 0.3); padding: 1px 6px; border-radius: 4px; }
+
+/* ---------- Layout ---------- */
+.layout {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 1fr 360px;
+}
+
+#map { width: 100%; height: 100%; min-height: 320px; background: #0b1220; }
+
+.panel {
+  overflow-y: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  border-left: 1px solid #334155;
+}
+
+.status { color: var(--muted); font-size: 14px; padding: 4px 2px; }
+.status.error { color: var(--danger); }
+
+.card {
+  background: var(--panel);
+  border-radius: var(--radius);
+  padding: 16px;
+}
+.card h2 { margin: 0 0 8px; font-size: 16px; }
+
+/* ---------- Current weather ---------- */
+.now { display: flex; align-items: center; gap: 12px; }
+.now h2 { margin: 0; font-size: 18px; }
+.temp { font-size: 40px; font-weight: 700; line-height: 1.1; }
+.desc { color: var(--muted); text-transform: capitalize; font-size: 14px; }
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin: 16px 0 0;
+}
+.stats div { background: var(--panel-2); border-radius: 8px; padding: 8px 10px; }
+.stats dt { color: var(--muted); font-size: 12px; }
+.stats dd { margin: 2px 0 0; font-weight: 600; }
+
+/* ---------- Forecast ---------- */
+.days { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; text-align: center; }
+.day { display: flex; flex-direction: column; align-items: center; font-size: 13px; }
+.day small { color: var(--muted); }
+
+/* ---------- Recent ---------- */
+.recent { list-style: none; margin: 0 0 6px; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.recent button { width: 100%; text-align: left; font-size: 13px; padding: 6px 10px; }
+.link { background: none; border: 0; color: var(--accent); padding: 0; font-size: 13px; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 800px) {
+  .layout { grid-template-columns: 1fr; grid-template-rows: 55vh auto; }
+  .panel { border-left: 0; border-top: 1px solid #334155; }
+  .controls { margin-left: 0; }
+  body { min-height: 100%; height: auto; }
+}

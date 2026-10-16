@@ -1,0 +1,58 @@
+<header class="topbar">
+  <div class="brand">
+    <span class="logo">&#9729;</span>
+    <div>
+      <h1>CloudPoint</h1>
+      <p>Real-time weather on the map</p>
+    </div>
+  </div>
+
+  <form id="search-form" class="search" autocomplete="off">
+    <input id="search-input" type="text" placeholder="Search a city or place..." aria-label="Search a place" required>
+    <button type="submit">Search</button>
+    <button type="button" id="locate-btn" title="Use my location">&#9737; Me</button>
+  </form>
+
+  <div class="controls">
+    <div class="segmented" role="group" aria-label="Units">
+      <button type="button" id="unit-c" class="active">&deg;C</button>
+      <button type="button" id="unit-f">&deg;F</button>
+    </div>
+    <select id="layer-select" aria-label="Map weather layer">
+      <option value="">No overlay</option>
+      <option value="clouds_new">Clouds</option>
+      <option value="precipitation_new">Precipitation</option>
+      <option value="temp_new">Temperature</option>
+      <option value="wind_new">Wind</option>
+      <option value="pressure_new">Pressure</option>
+    </select>
+  </div>
+</header>
+
+{{#if missingKeys}}
+<div class="banner">
+  API keys are missing. Copy <code>.env.example</code> to <code>.env</code>, add your Google Maps and OpenWeatherMap keys, then restart the server.
+</div>
+{{/if}}
+
+<main class="layout">
+  <section id="map" aria-label="Map"></section>
+
+  <aside class="panel">
+    <div id="status" class="status">Click anywhere on the map or search a place to see the weather.</div>
+
+    <div id="current" class="card hidden"></div>
+    <div id="forecast" class="card hidden"></div>
+
+    <div id="recent-wrap" class="card hidden">
+      <h2>Recent searches</h2>
+      <ul id="recent" class="recent"></ul>
+      <button type="button" id="clear-recent" class="link">Clear</button>
+    </div>
+  </aside>
+</main>
+
+<script src="/js/app.js"></script>
+{{#unless missingKeys}}
+<script async defer src="https://maps.googleapis.com/maps/api/js?key={{mapsKey}}&callback=initMap"></script>
+{{/unless}}
